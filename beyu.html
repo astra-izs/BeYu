@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BeYu — 말레이시아 제조</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #2B3A6B;
+  --navy-deep: #1E2D55;
+  --navy-light: #3D5080;
+  --periwinkle: #7B9FD4;
+  --sky: #A8C4E8;
+  --ice: #D6E6F7;
+  --frost: #EEF5FC;
+  --white: #F8FAFF;
+  --cream: #F0EDE8;
+  --gold: #E8E0C8;
+  --text-light: #C5D4ED;
+  --text-muted: #8AAACF;
+  --border: rgba(168,196,232,0.25);
+  --border-light: rgba(168,196,232,0.12);
+  --shadow: 0 4px 32px rgba(27,45,85,0.18);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--navy);
+  color: var(--white);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--navy-deep); }
+::-webkit-scrollbar-thumb { background: var(--periwinkle); border-radius: 2px; }
+
+/* ─── TYPOGRAPHY ─── */
+.serif { font-family: 'Cormorant Garamond', serif; }
+h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 500; line-height: 1.15; }
+
+/* ─── NAV ─── */
+.site-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px;
+  height: 68px;
+  background: rgba(27, 42, 85, 0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px; font-weight: 600; letter-spacing: 0.08em;
+  color: var(--white);
+  display: flex; align-items: center; gap: 8px;
+}
+.nav-logo span { color: var(--sky); }
+.nav-links { display: flex; align-items: center; gap: 4px; }
+.nav-links button {
+  background: none; border: none; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 400;
+  color: var(--text-light); padding: 6px 14px; border-radius: 20px;
+  transition: all .2s; letter-spacing: 0.03em;
+}
+.nav-links button:hover, .nav-links button.active {
+  background: rgba(168,196,232,0.15); color: var(--white);
+}
+.nav-actions { display: flex; align-items: center; gap: 10px; }
+.nav-cart {
+  position: relative; background: none; border: 1px solid var(--border);
+  color: var(--text-light); padding: 7px 16px; border-radius: 20px;
+  font-family: 'DM Sans', sans-serif; font-size: 13px; cursor: pointer;
+  transition: all .2s;
+}
+.nav-cart:hover { background: rgba(168,196,232,0.15); color: var(--white); border-color: var(--sky); }
+.cart-count {
+  position: absolute; top: -6px; right: -4px;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--sky); color: var(--navy-deep);
+  font-size: 10px; font-weight: 500;
+  display: flex; align-items: center; justify-content: center;
+}
+.nav-profile-btn {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--navy-light); border: 1.5px solid var(--periwinkle);
+  color: var(--sky); font-size: 14px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .2s;
+}
+.nav-profile-btn:hover { background: var(--periwinkle); color: var(--white); }
+
+/* ─── PAGES ─── */
+.page { display: none; padding-top: 68px; min-height: 100vh; }
+.page.active { display: block; animation: fadeIn .3s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: calc(100vh - 68px);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 80px 40px;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 50% 40%, rgba(123,159,212,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-size: 11px; letter-spacing: 0.25em; color: var(--sky);
+  text-transform: uppercase; margin-bottom: 20px;
+  border: 1px solid var(--border); padding: 5px 18px; border-radius: 20px;
+  display: inline-block;
+}
+.hero h1 { font-size: clamp(52px, 8vw, 96px); color: var(--white); margin-bottom: 20px; }
+.hero h1 em { color: var(--sky); font-style: italic; }
+.hero-sub { font-size: 16px; color: var(--text-light); max-width: 500px; line-height: 1.7; margin-bottom: 40px; font-weight: 300; }
+.hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.btn-primary {
+  background: var(--sky); color: var(--navy-deep);
+  border: none; padding: 13px 32px; border-radius: 32px;
+  font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500;
+  cursor: pointer; transition: all .25s; letter-spacing: 0.03em;
+}
+.btn-primary:hover { background: var(--white); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(168,196,232,0.3); }
+.btn-outline {
+  background: none; border: 1px solid var(--border);
+  color: var(--text-light); padding: 13px 32px; border-radius: 32px;
+  font-family: 'DM Sans', sans-serif; font-size: 14px; cursor: pointer;
+  transition: all .25s; letter-spacing: 0.03em;
+}
+.btn-outline:hover { border-color: var(--sky); color: var(--sky); }
+
+/* Hero skin tiles */
+.hero-skin-tiles {
+  display: flex; gap: 10px; margin-top: 52px; flex-wrap: wrap; justify-content: center;
+}
+.skin-tile {
+  background: rgba(168,196,232,0.08); border: 1px solid var(--border);
+  border-radius: 14px; padding: 14px 20px; cursor: pointer;
+  transition: all .2s; font-size: 13px; color: var(--text-light);
+}
+.skin-tile:hover { background: rgba(168,196,232,0.18); border-color: var(--sky); color: var(--white); }
+.skin-tile-icon { font-size: 20px; margin-bottom: 6px; }
+
+/* ─── SECTION ─── */
+.section { padding: 72px 40px; }
+.section-label {
+  font-size: 10px; letter-spacing: 0.28em; color: var(--sky);
+  text-transform: uppercase; margin-bottom: 12px;
+}
+.section-title { font-size: clamp(28px, 4vw, 44px); color: var(--white); margin-bottom: 8px; }
+.section-sub { font-size: 14px; color: var(--text-muted); font-weight: 300; margin-bottom: 40px; max-width: 500px; }
+
+/* ─── PRODUCT CARDS ─── */
+.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+.product-card {
+  background: rgba(168,196,232,0.06); border: 1px solid var(--border);
+  border-radius: 18px; overflow: hidden; cursor: pointer;
+  transition: all .3s; position: relative;
+}
+.product-card:hover { transform: translateY(-4px); border-color: rgba(168,196,232,0.45); box-shadow: 0 12px 40px rgba(27,45,85,0.35); }
+.product-img {
+  height: 200px; background: linear-gradient(135deg, rgba(168,196,232,0.12) 0%, rgba(123,159,212,0.2) 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 48px; border-bottom: 1px solid var(--border-light);
+  position: relative;
+}
+.product-badge {
+  position: absolute; top: 12px; left: 12px;
+  background: var(--sky); color: var(--navy-deep);
+  font-size: 10px; font-weight: 500; padding: 3px 10px; border-radius: 10px;
+  letter-spacing: 0.05em;
+}
+.product-body { padding: 16px 18px 20px; }
+.product-tag { font-size: 10px; color: var(--periwinkle); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 5px; }
+.product-name { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--white); margin-bottom: 4px; }
+.product-desc { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; line-height: 1.5; }
+.product-footer { display: flex; align-items: center; justify-content: space-between; }
+.product-price { font-size: 16px; font-weight: 500; color: var(--sky); }
+.product-add {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--sky); border: none; color: var(--navy-deep);
+  font-size: 18px; cursor: pointer; transition: all .2s;
+  display: flex; align-items: center; justify-content: center;
+}
+.product-add:hover { background: var(--white); transform: scale(1.1); }
+
+/* ─── GLASS CARD ─── */
+.glass-card {
+  background: rgba(168,196,232,0.07); border: 1px solid var(--border);
+  border-radius: 18px; padding: 24px;
+}
+
+/* ─── SIDEBAR LAYOUT ─── */
+.sidebar-layout { display: grid; grid-template-columns: 240px 1fr; gap: 24px; }
+.sidebar {
+  background: rgba(168,196,232,0.05); border: 1px solid var(--border);
+  border-radius: 18px; padding: 20px; height: fit-content;
+}
+.sidebar-title { font-size: 11px; letter-spacing: 0.15em; color: var(--text-muted); text-transform: uppercase; margin-bottom: 14px; }
+.sidebar-item {
+  display: block; width: 100%; text-align: left;
+  background: none; border: none; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--text-light);
+  padding: 9px 14px; border-radius: 10px; transition: all .18s; margin-bottom: 2px;
+}
+.sidebar-item:hover { background: rgba(168,196,232,0.1); color: var(--white); }
+.sidebar-item.active { background: rgba(123,159,212,0.2); color: var(--sky); font-weight: 500; }
+.sidebar-divider { border: none; border-top: 1px solid var(--border-light); margin: 12px 0; }
+
+/* ─── FORM ELEMENTS ─── */
+.form-group { margin-bottom: 18px; }
+.form-label { display: block; font-size: 11px; letter-spacing: 0.1em; color: var(--text-muted); text-transform: uppercase; margin-bottom: 7px; }
+.form-input, .form-select, .form-textarea {
+  width: 100%; padding: 11px 16px;
+  background: rgba(168,196,232,0.06); border: 1px solid var(--border);
+  border-radius: 10px; color: var(--white);
+  font-family: 'DM Sans', sans-serif; font-size: 13px;
+  transition: all .2s; outline: none;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: var(--periwinkle); background: rgba(168,196,232,0.1);
+}
+.form-input::placeholder, .form-textarea::placeholder { color: var(--text-muted); }
+.form-select { appearance: none; cursor: pointer; }
+.form-select option { background: var(--navy-deep); }
+.form-textarea { resize: none; height: 100px; }
+.form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+/* ─── BADGES ─── */
+.badge {
+  display: inline-block; padding: 3px 10px; border-radius: 20px;
+  font-size: 10px; font-weight: 500; letter-spacing: 0.05em;
+}
+.badge-sky { background: rgba(168,196,232,0.2); color: var(--sky); }
+.badge-gold { background: rgba(232,224,200,0.2); color: var(--gold); }
+.badge-success { background: rgba(100,200,150,0.15); color: #7dd4a8; }
+.badge-muted { background: rgba(168,196,232,0.08); color: var(--text-muted); border: 1px solid var(--border); }
+
+/* ─── BREADCRUMB ─── */
+.breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-muted); padding: 18px 40px 0; }
+.breadcrumb span { color: var(--periwinkle); cursor: pointer; }
+.breadcrumb span:hover { color: var(--sky); }
+.breadcrumb-sep { color: var(--border); }
+
+/* ─── CART ─── */
+.cart-item {
+  display: flex; align-items: center; gap: 16px;
+  padding: 18px 0; border-bottom: 1px solid var(--border-light);
+}
+.cart-img {
+  width: 68px; height: 68px; border-radius: 12px;
+  background: rgba(168,196,232,0.12); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; flex-shrink: 0;
+}
+.cart-info { flex: 1; }
+.cart-name { font-family: 'Cormorant Garamond', serif; font-size: 17px; color: var(--white); margin-bottom: 3px; }
+.cart-variant { font-size: 11px; color: var(--text-muted); }
+.qty-control { display: flex; align-items: center; gap: 10px; }
+.qty-btn {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: rgba(168,196,232,0.1); border: 1px solid var(--border);
+  color: var(--text-light); font-size: 16px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .18s;
+}
+.qty-btn:hover { background: rgba(168,196,232,0.25); color: var(--white); }
+.qty-num { font-size: 14px; font-weight: 500; min-width: 20px; text-align: center; }
+.cart-price { font-size: 16px; font-weight: 500; color: var(--sky); min-width: 70px; text-align: right; }
+.cart-remove { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 16px; transition: color .18s; }
+.cart-remove:hover { color: #e88a8a; }
+
+/* ─── SUMMARY BOX ─── */
+.summary-box {
+  background: rgba(168,196,232,0.07); border: 1px solid var(--border);
+  border-radius: 18px; padding: 24px; position: sticky; top: 88px;
+}
+.summary-row { display: flex; justify-content: space-between; font-size: 13px; color: var(--text-light); margin-bottom: 10px; }
+.summary-total { display: flex; justify-content: space-between; font-size: 16px; font-weight: 500; color: var(--white); padding-top: 12px; border-top: 1px solid var(--border); margin-top: 4px; }
+.summary-total .price { color: var(--sky); }
+
+/* ─── PAYMENT STEPS ─── */
+.payment-steps { display: flex; align-items: center; justify-content: center; gap: 0; padding: 24px 40px; }
+.step { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+.step-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 500;
+}
+.step.done .step-num { background: var(--sky); color: var(--navy-deep); }
+.step.active .step-num { background: var(--periwinkle); color: var(--white); }
+.step.pending .step-num { background: var(--border); color: var(--text-muted); border: 1px solid var(--border); }
+.step.done .step-label { color: var(--sky); }
+.step.active .step-label { color: var(--white); }
+.step.pending .step-label { color: var(--text-muted); }
+.step-line { width: 48px; height: 1px; background: var(--border); margin: 0 6px; }
+.step-line.done { background: var(--sky); }
+
+/* ─── REVIEW ─── */
+.stars { color: #F0C97A; font-size: 14px; letter-spacing: 2px; }
+.rating-bar { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+.rating-track { flex: 1; height: 5px; border-radius: 3px; background: var(--border); }
+.rating-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--periwinkle), var(--sky)); }
+.review-card {
+  background: rgba(168,196,232,0.05); border: 1px solid var(--border);
+  border-radius: 16px; padding: 20px; margin-bottom: 14px;
+}
+.review-avatar {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: rgba(123,159,212,0.25); border: 1px solid var(--periwinkle);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 500; color: var(--sky); flex-shrink: 0;
+}
+
+/* ─── FAQ ─── */
+.faq-item {
+  border-bottom: 1px solid var(--border-light);
+}
+.faq-q {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 0; cursor: pointer; font-size: 14px; font-weight: 400; color: var(--white);
+  transition: color .18s;
+}
+.faq-q:hover { color: var(--sky); }
+.faq-chevron { color: var(--text-muted); font-size: 18px; transition: transform .2s; }
+.faq-a { font-size: 13px; color: var(--text-muted); line-height: 1.7; padding-bottom: 16px; display: none; }
+.faq-item.open .faq-a { display: block; }
+.faq-item.open .faq-chevron { transform: rotate(180deg); color: var(--sky); }
+.faq-item.open .faq-q { color: var(--sky); }
+
+/* ─── PROFILE ─── */
+.profile-header {
+  background: rgba(168,196,232,0.05); border-bottom: 1px solid var(--border);
+  padding: 28px 40px; display: flex; align-items: center; gap: 20px;
+}
+.profile-avatar {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: rgba(123,159,212,0.3); border: 2px solid var(--periwinkle);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif; font-size: 26px; color: var(--sky);
+}
+.stat-card {
+  background: rgba(168,196,232,0.07); border: 1px solid var(--border);
+  border-radius: 14px; padding: 18px; text-align: center;
+}
+.stat-num { font-family: 'Cormorant Garamond', serif; font-size: 32px; color: var(--sky); line-height: 1; margin-bottom: 4px; }
+.stat-label { font-size: 11px; color: var(--text-muted); letter-spacing: 0.05em; }
+
+/* ─── TABLE ─── */
+.data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.data-table th { padding: 10px 14px; text-align: left; color: var(--text-muted); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; border-bottom: 1px solid var(--border); }
+.data-table td { padding: 12px 14px; border-bottom: 1px solid var(--border-light); color: var(--text-light); }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: rgba(168,196,232,0.04); }
+
+/* ─── TOGGLE ─── */
+.toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid var(--border-light); }
+.toggle-info .toggle-name { font-size: 13px; color: var(--white); margin-bottom: 2px; }
+.toggle-info .toggle-desc { font-size: 11px; color: var(--text-muted); }
+.toggle-switch {
+  position: relative; width: 42px; height: 24px;
+  background: var(--border); border-radius: 12px; cursor: pointer;
+  transition: background .2s;
+}
+.toggle-switch.on { background: var(--periwinkle); }
+.toggle-switch::after {
+  content: ''; position: absolute; top: 3px; left: 3px;
+  width: 18px; height: 18px; border-radius: 50%; background: var(--white);
+  transition: transform .2s;
+}
+.toggle-switch.on::after { transform: translateX(18px); }
+
+/* ─── MAP PLACEHOLDER ─── */
+.map-ph {
+  width: 100%; height: 180px; border-radius: 14px;
+  background: rgba(168,196,232,0.07); border: 1px dashed var(--border);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  color: var(--text-muted); font-size: 13px; gap: 8px;
+}
+
+/* ─── SPARKLE DECO ─── */
+.sparkle { display: inline-block; color: var(--sky); font-size: 14px; }
+
+/* ─── FOOTER ─── */
+.site-footer {
+  background: var(--navy-deep); border-top: 1px solid var(--border);
+  padding: 48px 40px 28px;
+}
+.footer-grid { display: grid; grid-template-columns: 1.5fr repeat(3, 1fr); gap: 40px; margin-bottom: 40px; }
+.footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; color: var(--white); margin-bottom: 10px; }
+.footer-logo span { color: var(--sky); }
+.footer-tagline { font-size: 12px; color: var(--text-muted); line-height: 1.6; max-width: 220px; }
+.footer-col-title { font-size: 11px; letter-spacing: 0.15em; color: var(--sky); text-transform: uppercase; margin-bottom: 14px; }
+.footer-link { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 8px; cursor: pointer; transition: color .18s; background: none; border: none; text-align: left; }
+.footer-link:hover { color: var(--white); }
+.footer-bottom { border-top: 1px solid var(--border-light); padding-top: 20px; display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); }
+
+/* ─── TOAST ─── */
+.toast {
+  position: fixed; bottom: 28px; right: 28px; z-index: 999;
+  background: var(--sky); color: var(--navy-deep);
+  padding: 12px 22px; border-radius: 30px;
+  font-size: 13px; font-weight: 500;
+  box-shadow: 0 8px 24px rgba(27,45,85,0.4);
+  transform: translateY(80px); opacity: 0;
+  transition: all .3s ease;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  .site-nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .section { padding: 48px 20px; }
+  .sidebar-layout { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── NAVIGATION ─── -->
+<nav class="site-nav">
+  <div class="nav-logo">Be<span>Yu</span> <small style="font-size:11px;color:var(--text-muted);font-family:'DM Sans';font-weight:300;margin-left:4px">✦</small></div>
+  <div class="nav-links">
+    <button class="active" onclick="nav('home',this)">Home</button>
+    <button onclick="nav('product',this)">Products</button>
+    <button onclick="nav('about',this)">About Us</button>
+    <button onclick="nav('contact',this)">Contact</button>
+  </div>
+  <div class="nav-actions">
+    <button class="nav-cart" onclick="nav('cart',document.querySelector('.nav-links button'))">
+      Cart ✦ <span class="cart-count" id="cartCount">3</span>
+    </button>
+    <button class="nav-profile-btn" onclick="nav('profile',document.querySelector('.nav-links button'))">A</button>
+  </div>
+</nav>
+
+<!-- ─── TOAST ─── -->
+<div class="toast" id="toast"></div>
+
+<!-- ══════════════════════════════
+     HOME PAGE
+══════════════════════════════ -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-eyebrow">✦ 말레이시아 제조 · Made in Malaysia ✦</div>
+    <h1>Skin that feels<br>like <em>you</em></h1>
+    <p class="hero-sub">Korean-inspired skincare crafted in Malaysia. Clean ingredients, visible results — designed for every skin type.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="nav('product')">Shop Now</button>
+      <button class="btn-outline" onclick="nav('skin')">Find My Skin Type</button>
+    </div>
+    <div class="hero-skin-tiles">
+      <div class="skin-tile" onclick="nav('skin')"><div class="skin-tile-icon">💧</div>Oily</div>
+      <div class="skin-tile" onclick="nav('skin')"><div class="skin-tile-icon">🌸</div>Dry</div>
+      <div class="skin-tile" onclick="nav('skin')"><div class="skin-tile-icon">☁️</div>Combination</div>
+      <div class="skin-tile" onclick="nav('skin')"><div class="skin-tile-icon">🌿</div>Sensitive</div>
+      <div class="skin-tile" onclick="nav('skin')"><div class="skin-tile-icon">✨</div>Normal</div>
+    </div>
+  </div>
+
+  <!-- Featured Products -->
+  <div class="section" style="background:rgba(168,196,232,0.03); border-top:1px solid var(--border-light);">
+    <div class="section-label">Bestsellers</div>
+    <h2 class="section-title">Loved by your skin</h2>
+    <p class="section-sub">Formulated for the Malaysian climate. Tested. Proven. Adored.</p>
+    <div class="product-grid">
+      <div class="product-card" onclick="addToCart('gentle-foam-cleanser')">
+        <div class="product-img">🧴<div class="product-badge">BESTSELLER</div></div>
+        <div class="product-body">
+          <div class="product-tag">Cleanser</div>
+          <div class="product-name">Gentle Foam Cleanser</div>
+          <div class="product-desc">Oily · Combination — Low-pH formula</div>
+          <div class="product-footer"><div class="product-price">RM 58</div><button class="product-add" onclick="event.stopPropagation();addToCart('gentle-foam-cleanser')">+</button></div>
+        </div>
+      </div>
+      <div class="product-card" onclick="addToCart('hyalu-b5-glow-serum')">
+        <div class="product-img">💊</div>
+        <div class="product-body">
+          <div class="product-tag">Serum</div>
+          <div class="product-name">Hyalu-B5 Glow Serum</div>
+          <div class="product-desc">All types — Deep hydration</div>
+          <div class="product-footer"><div class="product-price">RM 120</div><button class="product-add" onclick="event.stopPropagation();addToCart('hyalu-b5-glow-serum')">+</button></div>
+        </div>
+      </div>
+      <div class="product-card" onclick="addToCart('cloud-barrier-cream')">
+        <div class="product-img">☁️<div class="product-badge">NEW</div></div>
+        <div class="product-body">
+          <div class="product-tag">Moisturiser</div>
+          <div class="product-name">Cloud Barrier Cream</div>
+          <div class="product-desc">Dry · Sensitive — Ceramide complex</div>
+          <div class="product-footer"><div class="product-price">RM 89</div><button class="product-add" onclick="event.stopPropagation();addToCart('cloud-barrier-cream')">+</button></div>
+        </div>
+      </div>
+      <div class="product-card" onclick="addToCart('uv-shield-spf50')">
+        <div class="product-img">🌞</div>
+        <div class="product-body">
+          <div class="product-tag">Sunscreen</div>
+          <div class="product-name">UV Shield SPF 50+</div>
+          <div class="product-desc">All types — PA++++ protection</div>
+          <div class="product-footer"><div class="product-price">RM 75</div><button class="product-add" onclick="event.stopPropagation();addToCart('uv-shield-spf50')">+</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Brand promise -->
+  <div class="section">
+    <div class="product-grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="glass-card" style="text-align:center">
+        <div style="font-size:32px;margin-bottom:12px">🌿</div>
+        <h3 style="font-size:20px;margin-bottom:8px">Clean Formula</h3>
+        <p style="font-size:13px;color:var(--text-muted);line-height:1.6">No parabens, sulfates or synthetic fragrances. Just skin-loving actives.</p>
+      </div>
+      <div class="glass-card" style="text-align:center">
+        <div style="font-size:32px;margin-bottom:12px">🐰</div>
+        <h3 style="font-size:20px;margin-bottom:8px">Cruelty-Free</h3>
+        <p style="font-size:13px;color:var(--text-muted);line-height:1.6">PETA-certified. Every BeYu product is tested on happy humans only.</p>
+      </div>
+      <div class="glass-card" style="text-align:center">
+        <div style="font-size:32px;margin-bottom:12px">🇲🇾</div>
+        <h3 style="font-size:20px;margin-bottom:8px">Made in Malaysia</h3>
+        <p style="font-size:13px;color:var(--text-muted);line-height:1.6">Formulated for tropical skin. Crafted with pride in Kuala Lumpur.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div><div class="footer-logo">Be<span>Yu</span></div><p class="footer-tagline">Korean-inspired skincare, made in Malaysia. For skin that feels beautifully like you.</p></div>
+      <div><div class="footer-col-title">Products</div><button class="footer-link" onclick="nav('product')">All Products</button><button class="footer-link" onclick="nav('skin')">By Skin Type</button><button class="footer-link" onclick="nav('review')">Reviews</button></div>
+      <div><div class="footer-col-title">Company</div><button class="footer-link" onclick="nav('about')">About Us</button><button class="footer-link" onclick="nav('founder')">Our Founder</button><button class="footer-link" onclick="nav('location')">Locations</button></div>
+      <div><div class="footer-col-title">Support</div><button class="footer-link" onclick="nav('contact')">Contact</button><button class="footer-link" onclick="nav('service')">Customer Service</button><button class="footer-link" onclick="nav('faq')">FAQ</button></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 BeYu Skincare Sdn Bhd · 말레이시아 제조</span><span>Privacy Policy · Terms</span></div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════
+     PRODUCT PAGE
+══════════════════════════════ -->
+<div class="page" id="page-product">
+  <div class="breadcrumb"><span onclick="nav('home')">Home</span><span class="breadcrumb-sep">›</span>Products</div>
+  <div class="section">
+    <div class="sidebar-layout">
+      <div>
+        <div class="sidebar" style="margin-bottom:16px">
+          <div class="sidebar-title">Skin Type</div>
+          <button class="sidebar-item active" onclick="filterSkin(this)">All</button>
+          <button class="sidebar-item" onclick="filterSkin(this)">Oily</button>
+          <button class="sidebar-item" onclick="filterSkin(this)">Dry</button>
+          <button class="sidebar-item" onclick="filterSkin(this)">Combination</button>
+          <button class="sidebar-item" onclick="filterSkin(this)">Sensitive</button>
+        </div>
+        <div class="sidebar">
+          <div class="sidebar-title">Category</div>
+          <button class="sidebar-item" onclick="filterSkin(this)">Cleanser</button>
+          <button class="sidebar-item" onclick="filterSkin(this)">Toner</button>
+          <button class="sidebar-item" onclick="filterSkin(this)">Serum</button>
+          <button class="sidebar-item" onclick="filterSkin(this)">Moisturiser</button>
+          <button class="sidebar-item" onclick="filterSkin(this)">Sunscreen</button>
+          <hr class="sidebar-divider">
+          <div class="sidebar-title">Price</div>
+          <button class="sidebar-item" onclick="filterSkin(this)">Under RM 50</button>
+          <button class="sidebar-item" onclick="filterSkin(this)">RM 50–100</button>
+          <button class="sidebar-item" onclick="filterSkin(this)">RM 100+</button>
+        </div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+          <p style="font-size:13px;color:var(--text-muted)">24 products</p>
+          <select class="form-select" style="width:160px">
+            <option>Sort: Popular</option>
+            <option>Price: Low–High</option>
+            <option>Price: High–Low</option>
+            <option>Newest</option>
+          </select>
+        </div>
+        <div class="product-grid">
+          <div class="product-card"><div class="product-img">🧴<div class="product-badge">BEST</div></div><div class="product-body"><div class="product-tag">Cleanser · Oily</div><div class="product-name">Gentle Foam Cleanser</div><div class="product-desc">Low-pH · Non-stripping</div><div class="product-footer"><div class="product-price">RM 58</div><button class="product-add" onclick="addToCart('gentle-foam-cleanser')">+</button></div></div></div>
+          <div class="product-card"><div class="product-img">💧</div><div class="product-body"><div class="product-tag">Toner · All</div><div class="product-name">Balancing Toner</div><div class="product-desc">Niacinamide · Pore refining</div><div class="product-footer"><div class="product-price">RM 65</div><button class="product-add" onclick="addToCart('balancing-toner')">+</button></div></div></div>
+          <div class="product-card"><div class="product-img">💊</div><div class="product-body"><div class="product-tag">Serum · All</div><div class="product-name">Hyalu-B5 Glow Serum</div><div class="product-desc">Hyaluronic Acid · Vitamin B5</div><div class="product-footer"><div class="product-price">RM 120</div><button class="product-add" onclick="addToCart('hyalu-b5-glow-serum')">+</button></div></div></div>
+          <div class="product-card"><div class="product-img">☁️<div class="product-badge">NEW</div></div><div class="product-body"><div class="product-tag">Moisturiser · Dry</div><div class="product-name">Cloud Barrier Cream</div><div class="product-desc">Ceramide · Peptide</div><div class="product-footer"><div class="product-price">RM 89</div><button class="product-add" onclick="addToCart('cloud-barrier-cream')">+</button></div></div></div>
+          <div class="product-card"><div class="product-img">🌞</div><div class="product-body"><div class="product-tag">Sunscreen · All</div><div class="product-name">UV Shield SPF 50+</div><div class="product-desc">PA++++ · Lightweight</div><div class="product-footer"><div class="product-price">RM 75</div><button class="product-add" onclick="addToCart('uv-shield-spf50')">+</button></div></div></div>
+          <div class="product-card"><div class="product-img">🌙</div><div class="product-body"><div class="product-tag">Serum · Sensitive</div><div class="product-name">Cica Calm Night Serum</div><div class="product-desc">Centella · Madecassoside</div><div class="product-footer"><div class="product-price">RM 105</div><button class="product-add" onclick="addToCart('cica-calm-night-serum')">+</button></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     SKIN TYPE PAGE
+══════════════════════════════ -->
+<div class="page" id="page-skin">
+  <div class="breadcrumb"><span onclick="nav('home')">Home</span><span class="breadcrumb-sep">›</span><span onclick="nav('product')">Products</span><span class="breadcrumb-sep">›</span>Skin Type</div>
+  <div class="section">
+    <div class="section-label">Personalised</div>
+    <h2 class="section-title">Find your skin type</h2>
+    <p class="section-sub">Answer a few quick questions and we'll match you with the perfect BeYu routine.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px">
+      <button class="btn-primary" id="skinTab-oily" onclick="setSkin('oily')">💧 Oily</button>
+      <button class="btn-outline" id="skinTab-dry" onclick="setSkin('dry')">🌸 Dry</button>
+      <button class="btn-outline" id="skinTab-combo" onclick="setSkin('combo')">☁️ Combination</button>
+      <button class="btn-outline" id="skinTab-sensitive" onclick="setSkin('sensitive')">🌿 Sensitive</button>
+    </div>
+    <!-- Quiz -->
+    <div class="glass-card" style="margin-bottom:32px">
+      <h3 style="font-size:20px;margin-bottom:20px">Quick skin quiz</h3>
+      <div class="form-grid-2" style="gap:20px">
+        <div>
+          <p style="font-size:13px;color:var(--text-light);margin-bottom:10px">How does your skin feel by midday?</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn-outline" style="padding:7px 14px;font-size:12px" onclick="quizSelect(this)">Very oily</button>
+            <button class="btn-primary" style="padding:7px 14px;font-size:12px" onclick="quizSelect(this)">Slightly shiny</button>
+            <button class="btn-outline" style="padding:7px 14px;font-size:12px" onclick="quizSelect(this)">Normal</button>
+            <button class="btn-outline" style="padding:7px 14px;font-size:12px" onclick="quizSelect(this)">Tight/dry</button>
+          </div>
+        </div>
+        <div>
+          <p style="font-size:13px;color:var(--text-light);margin-bottom:10px">Do you experience breakouts?</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn-outline" style="padding:7px 14px;font-size:12px" onclick="quizSelect(this)">Often</button>
+            <button class="btn-outline" style="padding:7px 14px;font-size:12px" onclick="quizSelect(this)">Sometimes</button>
+            <button class="btn-primary" style="padding:7px 14px;font-size:12px" onclick="quizSelect(this)">Rarely</button>
+            <button class="btn-outline" style="padding:7px 14px;font-size:12px" onclick="quizSelect(this)">Never</button>
+          </div>
+        </div>
+      </div>
+      <button class="btn-primary" style="margin-top:20px" onclick="showToast('✦ Matched! Your routine is ready below')">See Recommended Routine →</button>
+    </div>
+    <div class="section-label">Recommended for Oily Skin</div>
+    <div class="product-grid">
+      <div class="product-card"><div class="product-img">🧴</div><div class="product-body"><div class="product-tag">Step 1 · Cleanser</div><div class="product-name">Gentle Foam Cleanser</div><div class="product-footer"><div class="product-price">RM 58</div><button class="product-add" onclick="addToCart('gentle-foam-cleanser')">+</button></div></div></div>
+      <div class="product-card"><div class="product-img">💧</div><div class="product-body"><div class="product-tag">Step 2 · Toner</div><div class="product-name">Balancing Toner</div><div class="product-footer"><div class="product-price">RM 65</div><button class="product-add" onclick="addToCart('balancing-toner')">+</button></div></div></div>
+      <div class="product-card"><div class="product-img">💊</div><div class="product-body"><div class="product-tag">Step 3 · Serum</div><div class="product-name">Hyalu-B5 Glow Serum</div><div class="product-footer"><div class="product-price">RM 120</div><button class="product-add" onclick="addToCart('hyalu-b5-glow-serum')">+</button></div></div></div>
+      <div class="product-card"><div class="product-img">🌞</div><div class="product-body"><div class="product-tag">Step 4 · SPF</div><div class="product-name">UV Shield SPF 50+</div><div class="product-footer"><div class="product-price">RM 75</div><button class="product-add" onclick="addToCart('uv-shield-spf50')">+</button></div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     REVIEW PAGE
+══════════════════════════════ -->
+<div class="page" id="page-review">
+  <div class="breadcrumb"><span onclick="nav('home')">Home</span><span class="breadcrumb-sep">›</span><span onclick="nav('product')">Products</span><span class="breadcrumb-sep">›</span>Reviews</div>
+  <div class="section">
+    <div class="sidebar-layout" style="align-items:start">
+      <div>
+        <div class="glass-card" style="text-align:center;margin-bottom:16px">
+          <div style="font-size:52px;font-family:'Cormorant Garamond',serif;color:var(--sky);line-height:1">4.8</div>
+          <div class="stars">★★★★★</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:6px">312 reviews</div>
+        </div>
+        <div class="glass-card">
+          <div class="rating-bar"><span style="width:24px">5★</span><div class="rating-track"><div class="rating-fill" style="width:75%"></div></div><span>75%</span></div>
+          <div class="rating-bar"><span style="width:24px">4★</span><div class="rating-track"><div class="rating-fill" style="width:18%"></div></div><span>18%</span></div>
+          <div class="rating-bar"><span style="width:24px">3★</span><div class="rating-track"><div class="rating-fill" style="width:7%"></div></div><span>7%</span></div>
+        </div>
+        <button class="btn-primary" style="width:100%;margin-top:16px">Write a Review</button>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn-primary" style="padding:7px 14px;font-size:12px">All</button>
+            <button class="btn-outline" style="padding:7px 14px;font-size:12px">Cleanser</button>
+            <button class="btn-outline" style="padding:7px 14px;font-size:12px">Serum</button>
+            <button class="btn-outline" style="padding:7px 14px;font-size:12px">Sunscreen</button>
+          </div>
+        </div>
+        <div class="review-card">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+            <div class="review-avatar">S</div>
+            <div><div style="font-size:14px;font-weight:500;color:var(--white)">Sarah M.</div><div class="stars" style="font-size:12px">★★★★★</div></div>
+            <div style="margin-left:auto;font-size:11px;color:var(--text-muted)">10 Mar 2026</div>
+          </div>
+          <p style="font-size:13px;color:var(--text-light);line-height:1.6;margin-bottom:10px">The Gentle Foam Cleanser is absolutely incredible! My skin has never felt this clean without that tight feeling. Been using it for 3 months and my pores look so much smaller.</p>
+          <div><span class="badge badge-sky">Verified Purchase</span> <span class="badge badge-muted">Oily Skin</span></div>
+        </div>
+        <div class="review-card">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+            <div class="review-avatar">M</div>
+            <div><div style="font-size:14px;font-weight:500;color:var(--white)">Maya K.</div><div class="stars" style="font-size:12px">★★★★☆</div></div>
+            <div style="margin-left:auto;font-size:11px;color:var(--text-muted)">2 Mar 2026</div>
+          </div>
+          <p style="font-size:13px;color:var(--text-light);line-height:1.6;margin-bottom:10px">Love the Hyalu-B5 Serum! My skin is plumper and more glowy. Would give 5 stars but wish the bottle was a bit bigger. Will definitely repurchase!</p>
+          <div><span class="badge badge-sky">Verified Purchase</span> <span class="badge badge-muted">Dry Skin</span></div>
+        </div>
+        <div class="review-card">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+            <div class="review-avatar">L</div>
+            <div><div style="font-size:14px;font-weight:500;color:var(--white)">Lina A.</div><div class="stars" style="font-size:12px">★★★★★</div></div>
+            <div style="margin-left:auto;font-size:11px;color:var(--text-muted)">18 Feb 2026</div>
+          </div>
+          <p style="font-size:13px;color:var(--text-light);line-height:1.6;margin-bottom:10px">Finally found a sunscreen that doesn't leave white cast on my NC40 skin! The UV Shield is my holy grail now. Lightweight and doesn't pill under makeup.</p>
+          <div><span class="badge badge-sky">Verified Purchase</span> <span class="badge badge-muted">All Skin Types</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     ABOUT US
+══════════════════════════════ -->
+<div class="page" id="page-about">
+  <div class="breadcrumb"><span onclick="nav('home')">Home</span><span class="breadcrumb-sep">›</span>About Us</div>
+  <div class="hero" style="min-height:50vh">
+    <div class="hero-eyebrow">Our Story</div>
+    <h1 style="font-size:clamp(40px,6vw,72px)">Skincare born<br>from <em>love</em></h1>
+    <p class="hero-sub">BeYu started in a small Kuala Lumpur flat with a simple belief — that everyone deserves skin they love, without compromise.</p>
+  </div>
+  <div class="section" style="border-top:1px solid var(--border-light)">
+    <div class="product-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:48px">
+      <div class="glass-card" style="text-align:center"><div style="font-size:32px;margin-bottom:10px">🌿</div><h3 style="font-size:19px;margin-bottom:8px">Clean Beauty</h3><p style="font-size:13px;color:var(--text-muted);line-height:1.6">Formulated without harsh chemicals. Every ingredient earns its place on our list.</p></div>
+      <div class="glass-card" style="text-align:center"><div style="font-size:32px;margin-bottom:10px">🔬</div><h3 style="font-size:19px;margin-bottom:8px">Science-Backed</h3><p style="font-size:13px;color:var(--text-muted);line-height:1.6">Dermatologist-tested. Every product goes through rigorous efficacy testing.</p></div>
+      <div class="glass-card" style="text-align:center"><div style="font-size:32px;margin-bottom:10px">💙</div><h3 style="font-size:19px;margin-bottom:8px">Community First</h3><p style="font-size:13px;color:var(--text-muted);line-height:1.6">Built by the community, for the community. Your feedback shapes every formula.</p></div>
+    </div>
+    <div class="glass-card" style="display:flex;gap:24px;align-items:center">
+      <div style="width:80px;height:80px;border-radius:50%;background:rgba(123,159,212,0.25);border:2px solid var(--periwinkle);display:flex;align-items:center;justify-content:center;font-size:32px;flex-shrink:0">👩</div>
+      <div style="flex:1">
+        <h3 style="font-size:22px;margin-bottom:4px">Meet the Founder</h3>
+        <p style="font-size:13px;color:var(--text-muted);line-height:1.6;margin-bottom:14px">Dr. Yuna Rashid spent 10 years in dermatology before founding BeYu in 2021. She wanted to bridge the gap between clinical skincare and everyday beauty.</p>
+        <button class="btn-outline" style="padding:8px 20px;font-size:13px" onclick="nav('founder')">Read her story →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     FOUNDER PAGE
+══════════════════════════════ -->
+<div class="page" id="page-founder">
+  <div class="breadcrumb"><span onclick="nav('home')">Home</span><span class="breadcrumb-sep">›</span><span onclick="nav('about')">About Us</span><span class="breadcrumb-sep">›</span>Founder</div>
+  <div class="section">
+    <div class="form-grid-2" style="gap:48px;align-items:start">
+      <div>
+        <div style="width:100%;height:300px;border-radius:22px;background:rgba(168,196,232,0.1);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:80px;margin-bottom:20px">👩‍⚕️</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <span class="badge badge-sky">Dermatologist</span>
+          <span class="badge badge-gold">10+ Years</span>
+          <span class="badge badge-success">Cruelty-Free Advocate</span>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">Founder & CEO</div>
+        <h2 style="font-size:clamp(32px,5vw,56px);margin-bottom:6px">Dr. Yuna Rashid</h2>
+        <p style="font-size:14px;color:var(--periwinkle);margin-bottom:24px;font-style:italic">"Skin care is self care — and everyone deserves it."</p>
+        <p style="font-size:14px;color:var(--text-light);line-height:1.8;margin-bottom:16px">After a decade working as a clinical dermatologist in Kuala Lumpur, Dr. Yuna noticed her patients struggling to find effective skincare that truly worked for tropical climates and diverse skin tones.</p>
+        <p style="font-size:14px;color:var(--text-light);line-height:1.8;margin-bottom:16px">She founded BeYu in 2021 from her kitchen — literally — with a mission to create clean, affordable, and effective skincare inspired by Korean beauty philosophy but rooted in Malaysian identity.</p>
+        <p style="font-size:14px;color:var(--text-light);line-height:1.8;margin-bottom:28px">Today, BeYu is Malaysia's fastest-growing skincare brand, loved by over 50,000 customers across Southeast Asia.</p>
+        <div class="product-grid" style="grid-template-columns:repeat(3,1fr);gap:12px">
+          <div class="glass-card" style="text-align:center;padding:16px"><div style="font-size:24px;font-family:'Cormorant Garamond',serif;color:var(--sky)">50K+</div><div style="font-size:11px;color:var(--text-muted)">Customers</div></div>
+          <div class="glass-card" style="text-align:center;padding:16px"><div style="font-size:24px;font-family:'Cormorant Garamond',serif;color:var(--sky)">18</div><div style="font-size:11px;color:var(--text-muted)">Products</div></div>
+          <div class="glass-card" style="text-align:center;padding:16px"><div style="font-size:24px;font-family:'Cormorant Garamond',serif;color:var(--sky)">4</div><div style="font-size:11px;color:var(--text-muted)">Countries</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     LOCATION PAGE
+══════════════════════════════ -->
+<div class="page" id="page-location">
+  <div class="breadcrumb"><span onclick="nav('home')">Home</span><span class="breadcrumb-sep">›</span><span onclick="nav('about')">About Us</span><span class="breadcrumb-sep">›</span>Location</div>
+  <div class="section">
+    <div class="section-label">Visit Us</div>
+    <h2 class="section-title">Our Locations</h2>
+    <p class="section-sub">Find BeYu products in-store and get a complimentary skin consultation.</p>
+    <div class="map-ph" style="margin-bottom:28px"><span style="font-size:28px">🗺️</span>Interactive Map — Google Maps Embed</div>
+    <div class="form-grid-2" style="gap:16px">
+      <div class="glass-card">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px"><span style="font-size:24px">📍</span><h3 style="font-size:20px">Kuala Lumpur HQ</h3></div>
+        <p style="font-size:13px;color:var(--text-light);margin-bottom:6px">Level 12, Menara Ampang<br>Jalan Ampang, 50450 KL</p>
+        <hr style="border:none;border-top:1px solid var(--border-light);margin:12px 0">
+        <p style="font-size:12px;color:var(--text-muted)">Mon–Fri 9am–6pm · Sat 10am–4pm</p>
+        <button class="btn-outline" style="margin-top:14px;padding:8px 18px;font-size:12px">Get Directions →</button>
+      </div>
+      <div class="glass-card">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px"><span style="font-size:24px">🏪</span><h3 style="font-size:20px">Pavilion KL Flagship</h3></div>
+        <p style="font-size:13px;color:var(--text-light);margin-bottom:6px">Lot G-43, Ground Floor<br>Pavilion KL, Bukit Bintang</p>
+        <hr style="border:none;border-top:1px solid var(--border-light);margin:12px 0">
+        <p style="font-size:12px;color:var(--text-muted)">Daily 10am–10pm</p>
+        <button class="btn-outline" style="margin-top:14px;padding:8px 18px;font-size:12px">Get Directions →</button>
+      </div>
+      <div class="glass-card">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px"><span style="font-size:24px">🛍️</span><h3 style="font-size:20px">Mid Valley Megamall</h3></div>
+        <p style="font-size:13px;color:var(--text-light);margin-bottom:6px">LG-092, Lower Ground<br>Mid Valley City, Lingkaran Syed Putra</p>
+        <hr style="border:none;border-top:1px solid var(--border-light);margin:12px 0">
+        <p style="font-size:12px;color:var(--text-muted)">Daily 10am–10pm</p>
+        <button class="btn-outline" style="margin-top:14px;padding:8px 18px;font-size:12px">Get Directions →</button>
+      </div>
+      <div class="glass-card">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px"><span style="font-size:24px">🌐</span><h3 style="font-size:20px">Online Store</h3></div>
+        <p style="font-size:13px;color:var(--text-light);margin-bottom:6px">Shop anytime on our website, Shopee, Lazada, and TikTok Shop.</p>
+        <hr style="border:none;border-top:1px solid var(--border-light);margin:12px 0">
+        <p style="font-size:12px;color:var(--text-muted)">24/7 · Free shipping above RM 80</p>
+        <button class="btn-primary" style="margin-top:14px;padding:8px 18px;font-size:12px" onclick="nav('product')">Shop Online →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     CART PAGE
+══════════════════════════════ -->
+<div class="page" id="page-cart">
+  <div class="breadcrumb"><span onclick="nav('home')">Home</span><span class="breadcrumb-sep">›</span>Cart</div>
+  <div class="section">
+    <div class="section-label">Review</div>
+    <h2 class="section-title" style="margin-bottom:32px">Your Cart <span id="cartPageCount" style="font-size:22px;color:var(--text-muted)">(0)</span></h2>
+    <div id="cartPageContent"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     PAYMENT PAGE
+══════════════════════════════ -->
+<div class="page" id="page-payment">
+  <div class="breadcrumb"><span onclick="nav('home')">Home</span><span class="breadcrumb-sep">›</span><span onclick="nav('cart')">Cart</span><span class="breadcrumb-sep">›</span>Payment</div>
+  <div class="payment-steps">
+    <div class="step done"><div class="step-num">✓</div><span class="step-label">Cart</span></div>
+    <div class="step-line done"></div>
+    <div class="step done"><div class="step-num">✓</div><span class="step-label">Shipping</span></div>
+    <div class="step-line done"></div>
+    <div class="step active"><div class="step-num">3</div><span class="step-label">Payment</span></div>
+    <div class="step-line"></div>
+    <div class="step pending"><div class="step-num">4</div><span class="step-label">Confirm</span></div>
+  </div>
+  <div class="section" style="padding-top:20px">
+    <div style="display:grid;grid-template-columns:1fr 300px;gap:28px;align-items:start">
+      <div>
+        <div class="section-label" style="margin-bottom:16px">Payment Method</div>
+        <div class="glass-card" style="border:1px solid var(--periwinkle);margin-bottom:12px">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+            <div style="width:18px;height:18px;border-radius:50%;background:var(--periwinkle);display:flex;align-items:center;justify-content:center;font-size:10px">✓</div>
+            <span style="font-size:14px;font-weight:500">Credit / Debit Card</span>
+            <span class="badge badge-sky" style="margin-left:auto">Recommended</span>
+          </div>
+          <div class="form-group"><label class="form-label">Card Number</label><input class="form-input" placeholder="•••• •••• •••• ••••"></div>
+          <div class="form-grid-2"><div class="form-group"><label class="form-label">Expiry Date</label><input class="form-input" placeholder="MM / YY"></div><div class="form-group"><label class="form-label">CVV</label><input class="form-input" placeholder="•••"></div></div>
+          <div class="form-group"><label class="form-label">Name on Card</label><input class="form-input" placeholder="Full name as on card"></div>
+        </div>
+        <div class="glass-card" style="margin-bottom:12px;cursor:pointer">
+          <div style="display:flex;align-items:center;gap:12px"><div style="width:18px;height:18px;border-radius:50%;border:1px solid var(--border);background:none"></div><span style="font-size:14px;color:var(--text-light)">Online Banking / FPX</span></div>
+        </div>
+        <div class="glass-card" style="cursor:pointer">
+          <div style="display:flex;align-items:center;gap:12px"><div style="width:18px;height:18px;border-radius:50%;border:1px solid var(--border);background:none"></div><span style="font-size:14px;color:var(--text-light)">E-Wallet — Touch 'n Go · GrabPay · Boost</span></div>
+        </div>
+      </div>
+      <div class="summary-box">
+        <div style="font-size:11px;letter-spacing:0.15em;color:var(--sky);text-transform:uppercase;margin-bottom:16px">Order Total</div>
+        <div class="summary-row"><span>Items (4)</span><span>RM 373</span></div>
+        <div class="summary-row"><span>Shipping</span><span>RM 10</span></div>
+        <div class="summary-row" style="color:#7dd4a8"><span>Discount</span><span>−RM 37</span></div>
+        <div class="summary-total"><span>Total</span><span class="price">RM 346</span></div>
+        <button class="btn-primary" style="width:100%;margin-top:20px" onclick="showToast('✦ Order placed! Thank you!')">Place Order →</button>
+        <div style="font-size:11px;color:var(--text-muted);text-align:center;margin-top:10px">🔒 256-bit SSL Secured</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     CONTACT PAGE
+══════════════════════════════ -->
+<div class="page" id="page-contact">
+  <div class="breadcrumb"><span onclick="nav('home')">Home</span><span class="breadcrumb-sep">›</span>Contact</div>
+  <div class="section">
+    <div class="section-label">Get in touch</div>
+    <h2 class="section-title">We'd love to hear<br>from <em>you</em></h2>
+    <div class="form-grid-2" style="gap:40px;align-items:start;margin-top:32px">
+      <div>
+        <div class="form-group"><label class="form-label">Full Name</label><input class="form-input" placeholder="Your full name"></div>
+        <div class="form-group"><label class="form-label">Email Address</label><input class="form-input" placeholder="you@email.com"></div>
+        <div class="form-group"><label class="form-label">Subject</label><input class="form-input" placeholder="What's it about?"></div>
+        <div class="form-group"><label class="form-label">Message</label><textarea class="form-textarea" placeholder="Tell us how we can help…"></textarea></div>
+        <button class="btn-primary" onclick="showToast('Message sent ✦ We\'ll reply within 24h')">Send Message →</button>
+      </div>
+      <div>
+        <div class="glass-card" style="margin-bottom:12px">
+          <div style="font-size:11px;letter-spacing:0.1em;color:var(--text-muted);text-transform:uppercase;margin-bottom:6px">Email</div>
+          <div style="font-size:14px;color:var(--sky)">hello@beyu.my</div>
+        </div>
+        <div class="glass-card" style="margin-bottom:12px">
+          <div style="font-size:11px;letter-spacing:0.1em;color:var(--text-muted);text-transform:uppercase;margin-bottom:6px">Phone</div>
+          <div style="font-size:14px;color:var(--white)">+60 3-2345 6789</div>
+        </div>
+        <div class="glass-card" style="margin-bottom:20px">
+          <div style="font-size:11px;letter-spacing:0.1em;color:var(--text-muted);text-transform:uppercase;margin-bottom:6px">Address</div>
+          <div style="font-size:13px;color:var(--text-light);line-height:1.6">Level 12, Menara Ampang<br>Jalan Ampang, 50450<br>Kuala Lumpur, Malaysia</div>
+        </div>
+        <div style="font-size:11px;letter-spacing:0.1em;color:var(--text-muted);text-transform:uppercase;margin-bottom:12px">Quick Links</div>
+        <button class="btn-outline" style="width:100%;margin-bottom:8px" onclick="nav('service')">Customer Service →</button>
+        <button class="btn-outline" style="width:100%" onclick="nav('faq')">FAQ →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     CUSTOMER SERVICE
+══════════════════════════════ -->
+<div class="page" id="page-service">
+  <div class="breadcrumb"><span onclick="nav('home')">Home</span><span class="breadcrumb-sep">›</span><span onclick="nav('contact')">Contact</span><span class="breadcrumb-sep">›</span>Customer Service</div>
+  <div class="section">
+    <div class="section-label">We're here for you</div>
+    <h2 class="section-title">Customer Service</h2>
+    <div class="product-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:40px">
+      <div class="glass-card" style="text-align:center;cursor:pointer" onclick="showToast('Opening order tracker…')">
+        <div style="font-size:36px;margin-bottom:12px">📦</div>
+        <h3 style="font-size:18px;margin-bottom:6px">Track My Order</h3>
+        <p style="font-size:12px;color:var(--text-muted)">Real-time shipping updates for your order</p>
+      </div>
+      <div class="glass-card" style="text-align:center;cursor:pointer" onclick="showToast('Opening returns portal…')">
+        <div style="font-size:36px;margin-bottom:12px">🔄</div>
+        <h3 style="font-size:18px;margin-bottom:6px">Returns & Refunds</h3>
+        <p style="font-size:12px;color:var(--text-muted)">30-day hassle-free return policy</p>
+      </div>
+      <div class="glass-card" style="text-align:center;cursor:pointer" onclick="showToast('Starting live chat…')">
+        <div style="font-size:36px;margin-bottom:12px">💬</div>
+        <h3 style="font-size:18px;margin-bottom:6px">Live Chat</h3>
+        <p style="font-size:12px;color:var(--text-muted)">Mon–Sat 9am–9pm, response in &lt;5min</p>
+      </div>
+    </div>
+    <div class="section-label" style="margin-bottom:16px">Submit a Support Ticket</div>
+    <div class="glass-card">
+      <div class="form-grid-2" style="gap:16px">
+        <div class="form-group"><label class="form-label">Issue Type</label><select class="form-select"><option>Select category…</option><option>Order Issue</option><option>Product Question</option><option>Shipping Problem</option><option>Return / Refund</option><option>Other</option></select></div>
+        <div class="form-group"><label class="form-label">Order Number (optional)</label><input class="form-input" placeholder="#ORD-xxxxx"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea" placeholder="Please describe your issue in detail…" style="height:120px"></textarea></div>
+      <button class="btn-primary" onclick="showToast('Ticket submitted ✦ Expect a reply in 24h')">Submit Ticket →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     FAQ PAGE
+══════════════════════════════ -->
+<div class="page" id="page-faq">
+  <div class="breadcrumb"><span onclick="nav('home')">Home</span><span class="breadcrumb-sep">›</span><span onclick="nav('contact')">Contact</span><span class="breadcrumb-sep">›</span>FAQ</div>
+  <div class="section">
+    <div class="section-label">Answers</div>
+    <h2 class="section-title">Frequently Asked</h2>
+    <input class="form-input" placeholder="Search FAQs…" style="max-width:400px;margin-bottom:28px">
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px">
+      <button class="btn-primary" style="padding:7px 16px;font-size:12px">All</button>
+      <button class="btn-outline" style="padding:7px 16px;font-size:12px">Shipping</button>
+      <button class="btn-outline" style="padding:7px 16px;font-size:12px">Products</button>
+      <button class="btn-outline" style="padding:7px 16px;font-size:12px">Returns</button>
+      <button class="btn-outline" style="padding:7px 16px;font-size:12px">Account</button>
+    </div>
+    <div id="faqList">
+      <div class="faq-item open">
+        <div class="faq-q" onclick="toggleFaq(this)"><span>How long does shipping take?</span><span class="faq-chevron">›</span></div>
+        <div class="faq-a">Standard shipping within Peninsular Malaysia takes 3–5 business days. East Malaysia is 5–8 business days. Free shipping on orders above RM 80. Express same-day delivery available in Klang Valley.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span>Can I return a product?</span><span class="faq-chevron">›</span></div>
+        <div class="faq-a">Yes! We offer a 30-day return policy for unopened products. If your product arrived damaged or you received the wrong item, we'll replace it at no cost — even if opened.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span>Are BeYu products cruelty-free?</span><span class="faq-chevron">›</span></div>
+        <div class="faq-a">Absolutely. BeYu is PETA-certified cruelty-free. We never test on animals at any stage of production. We're also working towards full vegan certification by 2026.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span>How do I find my skin type?</span><span class="faq-chevron">›</span></div>
+        <div class="faq-a">Visit our Skin Type page and take our quick 2-minute quiz. We'll recommend a complete routine based on your answers. You can also book a free virtual consultation with one of our skin coaches.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span>What payment methods do you accept?</span><span class="faq-chevron">›</span></div>
+        <div class="faq-a">We accept Visa, Mastercard, FPX (all Malaysian banks), Touch 'n Go eWallet, GrabPay, Boost, and Shopee Pay. All transactions are SSL-secured.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span>Can I use multiple products together?</span><span class="faq-chevron">›</span></div>
+        <div class="faq-a">Yes! All BeYu products are formulated to work together. The recommended layering order is: Cleanser → Toner → Serum → Moisturiser → SPF (AM) or Night cream (PM).</div>
+      </div>
+    </div>
+    <div class="glass-card" style="text-align:center;margin-top:32px">
+      <h3 style="font-size:20px;margin-bottom:8px">Still have questions?</h3>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px">Our team is here to help Mon–Sat, 9am–9pm.</p>
+      <button class="btn-primary" onclick="nav('service')">Contact Customer Service →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     PROFILE PAGE
+══════════════════════════════ -->
+<div class="page" id="page-profile">
+  <div class="profile-header">
+    <div class="profile-avatar">A</div>
+    <div>
+      <h2 style="font-size:24px;margin-bottom:4px">Amirah Zakaria</h2>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:8px">amirah@email.com</p>
+      <span class="badge badge-gold">✦ Gold Member</span>
+    </div>
+  </div>
+  <div class="section" style="padding-top:28px">
+    <div class="sidebar-layout">
+      <div>
+        <div class="sidebar">
+          <button class="sidebar-item active" onclick="profileNav(this,'dashboard')">Dashboard</button>
+          <button class="sidebar-item" onclick="profileNav(this,'orders')">My Orders</button>
+          <button class="sidebar-item" onclick="nav('userinfo')">User Info</button>
+          <button class="sidebar-item" onclick="nav('accsetting')">Account Setting</button>
+          <button class="sidebar-item" onclick="profileNav(this,'wishlist')">Wishlist</button>
+          <hr class="sidebar-divider">
+          <button class="sidebar-item" style="color:#e88a8a" onclick="showToast('Logged out — See you soon ✦')">Log Out</button>
+        </div>
+      </div>
+      <div id="profileContent">
+        <!-- Dashboard -->
+        <div id="pane-dashboard">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px">
+            <div class="stat-card"><div class="stat-num">12</div><div class="stat-label">Orders</div></div>
+            <div class="stat-card"><div class="stat-num">5</div><div class="stat-label">Wishlist</div></div>
+            <div class="stat-card"><div class="stat-num">320</div><div class="stat-label">BeYu Points</div></div>
+          </div>
+          <div class="section-label" style="margin-bottom:14px">Recent Orders</div>
+          <div class="glass-card" style="padding:0;overflow:hidden">
+            <table class="data-table">
+              <thead><tr><th>Order ID</th><th>Date</th><th>Items</th><th>Total</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td style="color:var(--sky)">#ORD-1023</td><td>10 Mar 2026</td><td>3</td><td>RM 346</td><td><span class="badge badge-success">Delivered</span></td></tr>
+                <tr><td style="color:var(--sky)">#ORD-0981</td><td>1 Feb 2026</td><td>1</td><td>RM 89</td><td><span class="badge badge-sky">In Transit</span></td></tr>
+                <tr><td style="color:var(--sky)">#ORD-0854</td><td>5 Jan 2026</td><td>2</td><td>RM 130</td><td><span class="badge badge-success">Delivered</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- Orders -->
+        <div id="pane-orders" style="display:none">
+          <div class="section-label" style="margin-bottom:16px">All Orders</div>
+          <div class="glass-card" style="padding:0;overflow:hidden">
+            <table class="data-table">
+              <thead><tr><th>Order ID</th><th>Date</th><th>Items</th><th>Total</th><th>Status</th><th></th></tr></thead>
+              <tbody>
+                <tr><td style="color:var(--sky)">#ORD-1023</td><td>10 Mar 2026</td><td>3 items</td><td>RM 346</td><td><span class="badge badge-success">Delivered</span></td><td><button class="btn-outline" style="padding:4px 12px;font-size:11px">View</button></td></tr>
+                <tr><td style="color:var(--sky)">#ORD-0981</td><td>1 Feb 2026</td><td>1 item</td><td>RM 89</td><td><span class="badge badge-sky">In Transit</span></td><td><button class="btn-outline" style="padding:4px 12px;font-size:11px">Track</button></td></tr>
+                <tr><td style="color:var(--sky)">#ORD-0854</td><td>5 Jan 2026</td><td>2 items</td><td>RM 130</td><td><span class="badge badge-success">Delivered</span></td><td><button class="btn-outline" style="padding:4px 12px;font-size:11px">View</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- Wishlist -->
+        <div id="pane-wishlist" style="display:none">
+          <div class="section-label" style="margin-bottom:16px">Wishlist</div>
+          <div class="product-grid" style="grid-template-columns:repeat(2,1fr)">
+            <div class="product-card"><div class="product-img">🌙</div><div class="product-body"><div class="product-tag">Serum</div><div class="product-name">Cica Calm Night Serum</div><div class="product-footer"><div class="product-price">RM 105</div><button class="product-add" onclick="addToCart()">+</button></div></div></div>
+            <div class="product-card"><div class="product-img">☁️</div><div class="product-body"><div class="product-tag">Moisturiser</div><div class="product-name">Cloud Barrier Cream</div><div class="product-footer"><div class="product-price">RM 89</div><button class="product-add" onclick="addToCart()">+</button></div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     USER INFO PAGE
+══════════════════════════════ -->
+<div class="page" id="page-userinfo">
+  <div class="breadcrumb"><span onclick="nav('home')">Home</span><span class="breadcrumb-sep">›</span><span onclick="nav('profile')">Profile</span><span class="breadcrumb-sep">›</span>User Info</div>
+  <div class="section">
+    <div class="sidebar-layout">
+      <div class="sidebar">
+        <button class="sidebar-item" onclick="nav('profile')">Dashboard</button>
+        <button class="sidebar-item active">User Info</button>
+        <button class="sidebar-item" onclick="nav('accsetting')">Account Setting</button>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+          <div class="section-label" style="margin-bottom:0">Personal Information</div>
+          <button class="btn-outline" style="padding:8px 18px;font-size:13px">Edit Profile</button>
+        </div>
+        <div class="glass-card" style="margin-bottom:16px">
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px">
+            <div class="profile-avatar" style="width:72px;height:72px;font-size:28px">A</div>
+            <button class="btn-outline" style="padding:8px 18px;font-size:12px">Change Photo</button>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group"><label class="form-label">First Name</label><input class="form-input" value="Amirah"></div>
+            <div class="form-group"><label class="form-label">Last Name</label><input class="form-input" value="Zakaria"></div>
+            <div class="form-group"><label class="form-label">Email Address</label><input class="form-input" value="amirah@email.com"></div>
+            <div class="form-group"><label class="form-label">Phone Number</label><input class="form-input" value="+60 12-345 6789"></div>
+            <div class="form-group"><label class="form-label">Date of Birth</label><input class="form-input" placeholder="DD / MM / YYYY"></div>
+            <div class="form-group"><label class="form-label">Skin Type</label><select class="form-select"><option>Oily</option><option>Dry</option><option>Combination</option><option>Sensitive</option></select></div>
+          </div>
+        </div>
+        <div class="section-label" style="margin-bottom:14px">Shipping Address</div>
+        <div class="glass-card" style="margin-bottom:20px">
+          <div class="form-group"><label class="form-label">Address Line 1</label><input class="form-input" placeholder="Street address"></div>
+          <div class="form-group"><label class="form-label">Address Line 2</label><input class="form-input" placeholder="Apt / Unit (optional)"></div>
+          <div class="form-grid-2">
+            <div class="form-group"><label class="form-label">City</label><input class="form-input" value="Kuala Lumpur"></div>
+            <div class="form-group"><label class="form-label">Postcode</label><input class="form-input" placeholder="50000"></div>
+            <div class="form-group"><label class="form-label">State</label><select class="form-select"><option>Selangor</option><option>Kuala Lumpur</option><option>Johor</option></select></div>
+            <div class="form-group"><label class="form-label">Country</label><input class="form-input" value="Malaysia"></div>
+          </div>
+        </div>
+        <button class="btn-primary" onclick="showToast('Changes saved ✦')">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     ACCOUNT SETTING PAGE
+══════════════════════════════ -->
+<div class="page" id="page-accsetting">
+  <div class="breadcrumb"><span onclick="nav('home')">Home</span><span class="breadcrumb-sep">›</span><span onclick="nav('profile')">Profile</span><span class="breadcrumb-sep">›</span>Account Setting</div>
+  <div class="section">
+    <div class="sidebar-layout">
+      <div class="sidebar">
+        <button class="sidebar-item" onclick="nav('profile')">Dashboard</button>
+        <button class="sidebar-item" onclick="nav('userinfo')">User Info</button>
+        <button class="sidebar-item active">Account Setting</button>
+      </div>
+      <div>
+        <div class="glass-card" style="margin-bottom:16px">
+          <h3 style="font-size:18px;margin-bottom:18px">Change Password</h3>
+          <div class="form-group"><label class="form-label">Current Password</label><input class="form-input" type="password" placeholder="••••••••"></div>
+          <div class="form-group"><label class="form-label">New Password</label><input class="form-input" type="password" placeholder="At least 8 characters"></div>
+          <div class="form-group"><label class="form-label">Confirm New Password</label><input class="form-input" type="password" placeholder="Re-enter new password"></div>
+          <button class="btn-primary" onclick="showToast('Password updated ✦')">Update Password</button>
+        </div>
+        <div class="glass-card" style="margin-bottom:16px">
+          <h3 style="font-size:18px;margin-bottom:18px">Notification Preferences</h3>
+          <div class="toggle-row">
+            <div class="toggle-info"><div class="toggle-name">Order Updates</div><div class="toggle-desc">Track your shipment status in real-time</div></div>
+            <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info"><div class="toggle-name">Promotions & Offers</div><div class="toggle-desc">Sales, new launches & exclusive discounts</div></div>
+            <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
+          </div>
+          <div class="toggle-row" style="border-bottom:none">
+            <div class="toggle-info"><div class="toggle-name">Skincare Tips Newsletter</div><div class="toggle-desc">Monthly advice from our dermatologist team</div></div>
+            <div class="toggle-switch" onclick="this.classList.toggle('on')"></div>
+          </div>
+        </div>
+        <div class="glass-card" style="border:1px solid rgba(232,138,138,0.25)">
+          <h3 style="font-size:18px;color:#e88a8a;margin-bottom:8px">Danger Zone</h3>
+          <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px">Permanently delete your account and all associated data. This action cannot be undone.</p>
+          <button class="btn-outline" style="border-color:rgba(232,138,138,0.4);color:#e88a8a" onclick="showToast('Please contact support to delete your account')">Delete Account</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── PRODUCT CATALOGUE ───
+const PRODUCTS = {
+  'gentle-foam-cleanser':   { id: 'gentle-foam-cleanser',   icon: '🧴', name: 'Gentle Foam Cleanser',  variant: '100ml · Oily Skin',  price: 58  },
+  'balancing-toner':        { id: 'balancing-toner',        icon: '💧', name: 'Balancing Toner',        variant: '150ml · All Skin',   price: 65  },
+  'hyalu-b5-glow-serum':    { id: 'hyalu-b5-glow-serum',    icon: '💊', name: 'Hyalu-B5 Glow Serum',    variant: '30ml · All Skin',    price: 120 },
+  'cloud-barrier-cream':    { id: 'cloud-barrier-cream',    icon: '☁️', name: 'Cloud Barrier Cream',    variant: '50ml · Dry Skin',    price: 89  },
+  'uv-shield-spf50':        { id: 'uv-shield-spf50',        icon: '🌞', name: 'UV Shield SPF 50+',      variant: '50ml · All Skin',    price: 75  },
+  'cica-calm-night-serum':  { id: 'cica-calm-night-serum',  icon: '🌙', name: 'Cica Calm Night Serum',  variant: '30ml · Sensitive',   price: 105 },
+};
+
+// Map product names → catalogue IDs (for add buttons that use name matching)
+const NAME_TO_ID = {};
+Object.values(PRODUCTS).forEach(p => { NAME_TO_ID[p.name.toLowerCase()] = p.id; });
+
+// ─── CART STATE ───
+// cart = { [productId]: quantity }
+let cart = {
+  'gentle-foam-cleanser': 1,
+  'hyalu-b5-glow-serum':  2,
+  'uv-shield-spf50':      1,
+};
+
+// ─── CART HELPERS ───
+function cartTotalItems() {
+  return Object.values(cart).reduce((s, q) => s + q, 0);
+}
+
+function cartSubtotal() {
+  return Object.entries(cart).reduce((s, [id, qty]) => {
+    return s + (PRODUCTS[id] ? PRODUCTS[id].price * qty : 0);
+  }, 0);
+}
+
+function updateNavBadge() {
+  const total = cartTotalItems();
+  document.getElementById('cartCount').textContent = total;
+}
+
+// ─── RENDER CART PAGE ───
+function renderCart() {
+  const wrap = document.getElementById('cartPageContent');
+  if (!wrap) return;
+
+  const ids = Object.keys(cart).filter(id => cart[id] > 0);
+  const totalItems = cartTotalItems();
+  const subtotal = cartSubtotal();
+  const shipping = subtotal > 0 ? (subtotal >= 80 ? 0 : 10) : 0;
+  const total = subtotal + shipping;
+
+  // Update heading count
+  const countEl = document.getElementById('cartPageCount');
+  if (countEl) countEl.textContent = '(' + totalItems + ')';
+
+  if (ids.length === 0) {
+    wrap.innerHTML = `
+      <div style="text-align:center;padding:80px 20px">
+        <div style="font-size:56px;margin-bottom:20px">🛒</div>
+        <h3 style="font-size:24px;color:var(--text-light);margin-bottom:10px">Your cart is empty</h3>
+        <p style="font-size:14px;color:var(--text-muted);margin-bottom:28px">Discover our skincare range and add something you'll love.</p>
+        <button class="btn-primary" onclick="nav('product')">Shop Now</button>
+      </div>`;
+    return;
+  }
+
+  const itemsHTML = ids.map(id => {
+    const p = PRODUCTS[id];
+    if (!p) return '';
+    const qty = cart[id];
+    const linePrice = p.price * qty;
+    return `
+      <div class="cart-item" id="cart-row-${id}">
+        <div class="cart-img">${p.icon}</div>
+        <div class="cart-info">
+          <div class="cart-name">${p.name}</div>
+          <div class="cart-variant">${p.variant}</div>
+        </div>
+        <div class="qty-control">
+          <button class="qty-btn" onclick="changeQty('${id}',-1)">−</button>
+          <span class="qty-num" id="qty-${id}">${qty}</span>
+          <button class="qty-btn" onclick="changeQty('${id}',1)">+</button>
+        </div>
+        <div class="cart-price" id="price-${id}">RM ${linePrice}</div>
+        <button class="cart-remove" onclick="removeItem('${id}')" title="Remove">✕</button>
+      </div>`;
+  }).join('');
+
+  const freeShipping = subtotal >= 80;
+  const shippingLabel = freeShipping
+    ? '<span style="color:#7dd4a8">Free</span>'
+    : 'RM ' + shipping;
+  const freeShippingNote = freeShipping
+    ? '<div style="font-size:11px;color:#7dd4a8;margin-bottom:6px">✦ Free shipping unlocked!</div>'
+    : subtotal > 0
+      ? `<div style="font-size:11px;color:var(--text-muted);margin-bottom:6px">Add RM ${80 - subtotal} more for free shipping</div>`
+      : '';
+
+  wrap.innerHTML = `
+    <div style="display:grid;grid-template-columns:1fr 320px;gap:28px;align-items:start">
+      <div>
+        <div id="cart-items-list">${itemsHTML}</div>
+        <div style="display:flex;gap:10px;margin-top:24px">
+          <input class="form-input" id="promoInput" placeholder="Promo code" style="max-width:240px">
+          <button class="btn-primary" onclick="applyPromo()">Apply</button>
+        </div>
+      </div>
+      <div class="summary-box">
+        <div style="font-size:11px;letter-spacing:0.15em;color:var(--sky);text-transform:uppercase;margin-bottom:16px">Order Summary</div>
+        ${freeShippingNote}
+        <div class="summary-row"><span>Subtotal (${totalItems} item${totalItems !== 1 ? 's' : ''})</span><span id="summarySubtotal">RM ${subtotal}</span></div>
+        <div class="summary-row"><span>Shipping</span><span id="summaryShipping">${shippingLabel}</span></div>
+        <div class="summary-total"><span>Total</span><span class="price" id="summaryTotal">RM ${total}</span></div>
+        <button class="btn-primary" style="width:100%;margin-top:20px" onclick="nav('payment')">Proceed to Payment →</button>
+        <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:12px;font-size:11px;color:var(--text-muted)">🔒 Secure SSL Checkout</div>
+      </div>
+    </div>`;
+}
+
+// ─── CART ACTIONS ───
+function changeQty(id, delta) {
+  if (!cart[id]) return;
+  const newQty = cart[id] + delta;
+  if (newQty <= 0) {
+    removeItem(id);
+    return;
+  }
+  cart[id] = newQty;
+  updateNavBadge();
+  // Fast in-place update (no full re-render flicker)
+  const qtyEl = document.getElementById('qty-' + id);
+  const priceEl = document.getElementById('price-' + id);
+  if (qtyEl) qtyEl.textContent = newQty;
+  if (priceEl) priceEl.textContent = 'RM ' + (PRODUCTS[id].price * newQty);
+  // Re-render summary
+  refreshSummary();
+}
+
+function removeItem(id) {
+  delete cart[id];
+  updateNavBadge();
+  renderCart(); // full re-render so empty state works
+}
+
+function refreshSummary() {
+  const totalItems = cartTotalItems();
+  const subtotal = cartSubtotal();
+  const shipping = subtotal > 0 ? (subtotal >= 80 ? 0 : 10) : 0;
+  const total = subtotal + shipping;
+
+  const countEl = document.getElementById('cartPageCount');
+  if (countEl) countEl.textContent = '(' + totalItems + ')';
+
+  const subEl = document.getElementById('summarySubtotal');
+  const shipEl = document.getElementById('summaryShipping');
+  const totEl = document.getElementById('summaryTotal');
+  if (subEl) subEl.textContent = 'RM ' + subtotal;
+  if (shipEl) shipEl.innerHTML = subtotal >= 80 ? '<span style="color:#7dd4a8">Free</span>' : 'RM ' + shipping;
+  if (totEl) totEl.textContent = 'RM ' + total;
+}
+
+function applyPromo() {
+  const code = (document.getElementById('promoInput')?.value || '').trim().toUpperCase();
+  if (code === 'BEYU10') {
+    showToast('Promo code BEYU10 applied ✦ (10% off at checkout)');
+  } else if (code === '') {
+    showToast('Please enter a promo code');
+  } else {
+    showToast('Invalid promo code');
+  }
+}
+
+// ─── ADD TO CART (from product cards) ───
+// Call with a product id key, or fall back to incrementing generic count
+function addToCart(productId) {
+  // Resolve product id
+  let id = productId;
+  if (!id || !PRODUCTS[id]) {
+    // Try to find product by reading nearest product-name element
+    id = null;
+  }
+  if (id && PRODUCTS[id]) {
+    cart[id] = (cart[id] || 0) + 1;
+  } else {
+    // Fallback: add generic item as first product
+    cart['gentle-foam-cleanser'] = (cart['gentle-foam-cleanser'] || 0) + 1;
+  }
+  updateNavBadge();
+  showToast('Added to cart ✦');
+  // Re-render cart page if it's currently active
+  if (document.getElementById('page-cart').classList.contains('active')) {
+    renderCart();
+  }
+}
+
+// Helper: add by product name (used by smarter product buttons)
+function addToCartByName(name) {
+  const id = NAME_TO_ID[name.toLowerCase()];
+  addToCart(id || null);
+}
+
+// ─── NAVIGATION ───
+function nav(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('page-' + pageId);
+  if (target) target.classList.add('active');
+
+  if (pageId === 'cart') renderCart();
+
+  const mainPages = ['home','product','about','contact'];
+  document.querySelectorAll('.nav-links button').forEach((b,i) => {
+    b.classList.remove('active');
+    if (mainPages[i] === pageId) b.classList.add('active');
+  });
+
+  window.scrollTo(0, 0);
+}
+
+// ─── SIDEBAR FILTER ───
+function filterSkin(el) {
+  el.closest('.sidebar').querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ─── PROFILE SUB-NAVIGATION ───
+function profileNav(el, pane) {
+  el.closest('.sidebar').querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('[id^="pane-"]').forEach(p => p.style.display = 'none');
+  const target = document.getElementById('pane-' + pane);
+  if (target) target.style.display = 'block';
+}
+
+// ─── QUIZ SELECT ───
+function quizSelect(el) {
+  const group = el.closest('div');
+  group.querySelectorAll('button').forEach(b => {
+    b.className = 'btn-outline';
+    b.style.padding = '7px 14px';
+    b.style.fontSize = '12px';
+  });
+  el.className = 'btn-primary';
+  el.style.padding = '7px 14px';
+  el.style.fontSize = '12px';
+}
+
+// ─── SKIN TYPE TABS ───
+function setSkin(type) {
+  ['oily','dry','combo','sensitive'].forEach(t => {
+    const btn = document.getElementById('skinTab-' + t);
+    if (btn) btn.className = t === type ? 'btn-primary' : 'btn-outline';
+  });
+}
+
+// ─── FAQ TOGGLE ───
+function toggleFaq(qEl) {
+  const item = qEl.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// ─── TOAST ───
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ─── INIT ───
+updateNavBadge();
+</script>
+</body>
+</html>
